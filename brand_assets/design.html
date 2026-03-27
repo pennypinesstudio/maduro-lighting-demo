@@ -1,0 +1,882 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Maduro Lighting | Intelligent Systems</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;family=JetBrains+Mono:wght@400;700&amp;family=Syne:wght@700;800&amp;family=Syncopate:wght@700&amp;display=swap" rel="stylesheet" vid="7">
+    <style vid="8">
+        :root {
+            --void: #030303;
+            --surface-1: #0A0A0A;
+            --surface-2: #141414;
+            --border: #222222;
+            --border-glow: rgba(242, 169, 0, 0.3);
+            
+            --text-main: #FFFFFF;
+            --text-muted: #8A8A8A;
+            --text-dim: #444444;
+            
+            --amber: #F2A900;
+            --amber-dim: rgba(242, 169, 0, 0.15);
+            
+            --font-display: 'Syncopate', sans-serif; 
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --grid-gap: 24px;
+            --section-pad: 120px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--void);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(to right, var(--border) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+            background-size: 100px 100px;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, var(--void) 80%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        ::selection {
+            background: var(--amber);
+            color: var(--void);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            line-height: 1.1;
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--amber);
+        }
+
+        
+        .mono-sm {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            color: var(--amber);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .eyebrow::before, .eyebrow::after {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--amber);
+        }
+
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        section {
+            padding: var(--section-pad) 0;
+            position: relative;
+        }
+
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(3,3,3,0.9) 0%, rgba(3,3,3,0) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 0.15em;
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .logo span {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.4em;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 48px;
+        }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-main);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: var(--text-main);
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .btn:hover {
+            color: var(--void);
+            border-color: var(--text-main);
+        }
+
+        .btn.primary {
+            background: var(--text-main);
+            color: var(--void);
+            border-color: var(--text-main);
+        }
+        .btn.primary::before {
+            background: var(--amber);
+        }
+        .btn.primary:hover {
+            border-color: var(--amber);
+            box-shadow: 0 0 20px rgba(242, 169, 0, 0.4);
+        }
+
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-bg-light {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vh;
+            background: radial-gradient(circle at center, rgba(242, 169, 0, 0.08) 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        
+        .hero-monolith {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 300px;
+            height: 65vh;
+            background: #000;
+            z-index: 1;
+            box-shadow: 
+                inset 2px 0 0 0 rgba(255,255,255,0.05),
+                inset -4px 0 20px rgba(0,0,0,0.9);
+            border: 1px solid var(--border);
+            border-left: 2px solid var(--amber); 
+        }
+
+        .hero-monolith::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            bottom: -20px;
+            left: -10px;
+            width: 20px;
+            background: linear-gradient(to right, transparent, var(--amber), transparent);
+            filter: blur(10px);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .hero-monolith-text {
+            position: absolute;
+            right: -20px;
+            top: 20px;
+            writing-mode: vertical-rl;
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: rgba(255,255,255,0.02);
+            letter-spacing: 0.2em;
+            white-space: nowrap;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 5.5rem;
+            margin-bottom: 32px;
+            
+            background: linear-gradient(180deg, #FFFFFF 0%, #888888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 48px;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 24px;
+        }
+
+        .sys-data {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            display: flex;
+            gap: 40px;
+            z-index: 2;
+        }
+
+        .sys-data div {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .sys-data span:first-child { color: var(--text-dim); }
+        .sys-data span:last-child { color: var(--text-main); font-weight: 700; }
+
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 80px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 32px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            max-width: 600px;
+        }
+
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px; 
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .cat-card {
+            background: var(--void);
+            padding: 48px 32px;
+            position: relative;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .cat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, var(--amber-dim) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cat-card:hover::before {
+            opacity: 1;
+        }
+        
+        .cat-card:hover {
+            box-shadow: inset 0 0 0 1px var(--amber);
+        }
+
+        .cat-number {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+        }
+
+        .cat-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            font-family: var(--font-body); 
+            font-weight: 500;
+            letter-spacing: 0;
+        }
+
+        
+        .system-showcase {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 64px;
+        }
+
+        .system-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .system-row:nth-child(even) .system-image-wrapper {
+            order: 2;
+        }
+
+        .system-image-wrapper {
+            position: relative;
+            aspect-ratio: 4/3;
+            background: var(--surface-1);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .system-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            mix-blend-mode: luminosity; 
+            transition: opacity 0.5s ease;
+        }
+
+        .system-row:hover .system-image-wrapper img {
+            opacity: 1;
+            mix-blend-mode: normal;
+        }
+
+        
+        .system-image-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.1) 51%, transparent 52%);
+            background-size: 10px 10px;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .crosshair {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            pointer-events: none;
+        }
+        .ch-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+        .ch-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+        .system-info {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .system-info h3 {
+            font-size: 2.5rem;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .spec-item .label { color: var(--text-muted); }
+        .spec-item .value { font-size: 1.1rem; color: var(--text-main); }
+
+        
+        .tech-section {
+            background: var(--surface-1);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .tech-card {
+            padding: 40px;
+            border: 1px solid var(--border);
+            background: var(--void);
+            position: relative;
+        }
+
+        .tech-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 32px;
+            border: 1px solid var(--amber);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--amber);
+        }
+
+        
+        .testimonial {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quote {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            line-height: 1.4;
+            margin-bottom: 40px;
+            color: var(--text-main);
+            text-transform: none; 
+        }
+
+        .quote-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 80px 0 40px;
+            background: var(--void);
+        }
+
+        .footer-cta {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .footer-cta h2 {
+            font-size: 4rem;
+            margin-bottom: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            margin-bottom: 24px;
+            color: var(--text-muted);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col a {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+        
+        .footer-col a:hover {
+            color: var(--text-main);
+        }
+
+        .footer-bottom {
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-dim);
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+        }
+
+        
+        .highlight { color: var(--amber); }
+
+        @media (max-width: 1024px) {
+            h1 { font-size: 4rem; }
+            .hero-monolith { display: none; } 
+            .category-grid { grid-template-columns: repeat(2, 1fr); }
+            .system-row { grid-template-columns: 1fr; gap: 40px; }
+            .system-row:nth-child(even) .system-image-wrapper { order: 0; }
+            .tech-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body vid="9">
+
+    <nav vid="10">
+        <div class="logo" vid="11">
+            MADURO<span vid="12">LIGHTING</span>
+        </div>
+        <div class="nav-links" vid="13">
+            <a href="#systems" vid="14">Systems</a>
+            <a href="#technology" vid="15">Technology</a>
+            <a href="#applications" vid="16">Applications</a>
+        </div>
+        <a href="#demo" class="btn" vid="17">Request Demo</a>
+    </nav>
+
+    <section class="hero" vid="18">
+        <div class="hero-bg-light" vid="19"></div>
+        
+        
+        <div class="hero-monolith" vid="20">
+            <div class="hero-monolith-text" vid="21">PERFORMANCE</div>
+        </div>
+
+        <div class="container" vid="22">
+            <div class="hero-content" vid="23">
+                <div class="eyebrow" vid="24">Intelligent Systems</div>
+                <h1 vid="25">Light That<br vid="26">Performs</h1>
+                <p vid="27">Precision-engineered lighting hardware for live performance, high-impact touring rigs, and permanent architectural installations. Absolute control in absolute darkness.</p>
+                
+                <div class="hero-actions" vid="28">
+                    <a href="#demo" class="btn primary" vid="29">Deploy System</a>
+                    <a href="#catalog" class="btn" vid="30">View Specs</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="sys-data" vid="31">
+            <div vid="32">
+                <span class="mono-sm" vid="33">SYS. STATUS</span>
+                <span class="mono-sm highlight" vid="34">ONLINE // OPTIMAL</span>
+            </div>
+            <div vid="35">
+                <span class="mono-sm" vid="36">PROTOCOL</span>
+                <span class="mono-sm" vid="37">DMX512 / ART-NET</span>
+            </div>
+            <div vid="38">
+                <span class="mono-sm" vid="39">COORD</span>
+                <span class="mono-sm" vid="40">N 34° 03' W 118° 15'</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="philosophy" vid="41">
+        <div class="section-header" vid="42">
+            <h2 vid="43">Engineered for<br vid="44">the <span class="highlight" vid="45">stage</span></h2>
+            <div class="mono-sm" style="max-width: 300px; text-align: right;" vid="46">
+                [01] WE DO NOT BUILD CONSUMER ELECTRONICS. WE BUILD HEAVY-DUTY OPTICAL INSTRUMENTS DESIGNED TO WITHSTAND THE ROAD.
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="catalog" vid="47">
+        <div class="category-grid" vid="48">
+            <div class="cat-card" vid="49">
+                <span class="mono-sm cat-number" vid="50">01 // MV-SERIES</span>
+                <h3 vid="51">Moving Head<br vid="52">Fixtures</h3>
+                <span class="mono-sm" style="color:var(--text-dim); margin-top: auto;" vid="53">12 MODELS AVAILABLE</span>
+            </div>
+            <div class="cat-card" vid="54">
+                <span class="mono-sm cat-number" vid="55">02 // WS-SERIES</span>
+                <h3 vid="56">LED Wash<br vid="57">Systems</h3>
+                <span class="mono-sm" style="color:var(--text-dim); margin-top: auto;" vid="58">8 MODELS AVAILABLE</span>
+            </div>
+            <div class="cat-card" vid="59">
+                <span class="mono-sm cat-number" vid="60">03 // CTRL-X</span>
+                <h3 vid="61">Control &amp; DMX<br vid="62">Routing</h3>
+                <span class="mono-sm" style="color:var(--text-dim); margin-top: auto;" vid="63">NODE / SPLITTER / BRAIN</span>
+            </div>
+            <div class="cat-card" vid="64">
+                <span class="mono-sm cat-number" vid="65">04 // TR-SYS</span>
+                <h3 vid="66">Touring<br vid="67">Rigs &amp; Truss</h3>
+                <span class="mono-sm" style="color:var(--text-dim); margin-top: auto;" vid="68">MODULAR DEPLOYMENT</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="systems" vid="69">
+        <div class="section-header" style="margin-top: 80px;" vid="70">
+            <h2 vid="71">Featured<br vid="72">Hardware</h2>
+            <span class="mono-sm" vid="73">SELECT INVENTORY</span>
+        </div>
+
+        <div class="system-showcase" vid="74">
+            
+            <div class="system-row" vid="75">
+                <div class="system-image-wrapper" vid="76">
+                    <div class="crosshair ch-tl" vid="77"></div>
+                    <div class="crosshair ch-br" vid="78"></div>
+                    <img src="https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=2" alt="Stage Lighting Rig" vid="79">
+                </div>
+                <div class="system-info" vid="80">
+                    <div vid="81">
+                        <span class="eyebrow" style="margin-bottom: 16px;" vid="82">Flagship Profile</span>
+                        <h3 vid="83">MD-750X Apex</h3>
+                    </div>
+                    <p style="color: var(--text-muted);" vid="84">A high-output CMY color mixing profile moving head. Featuring a custom 750W LED engine, delivering perfectly flat field illumination and razor-sharp projections across massive distances.</p>
+                    
+                    <div class="specs-grid" vid="85">
+                        <div class="spec-item" vid="86">
+                            <span class="mono-sm label" vid="87">OUTPUT</span>
+                            <span class="mono-sm value" vid="88">32,000 LUMENS</span>
+                        </div>
+                        <div class="spec-item" vid="89">
+                            <span class="mono-sm label" vid="90">ZOOM RANGE</span>
+                            <span class="mono-sm value" vid="91">5° — 50° LINEAR</span>
+                        </div>
+                        <div class="spec-item" vid="92">
+                            <span class="mono-sm label" vid="93">COLOR SYSTEM</span>
+                            <span class="mono-sm value" vid="94">CMY + CTO</span>
+                        </div>
+                        <div class="spec-item" vid="95">
+                            <span class="mono-sm label" vid="96">DMX CHANNELS</span>
+                            <span class="mono-sm value" vid="97">38 / 52 MODE</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn" style="align-self: flex-start;" vid="98">View Full Datasheet</a>
+                </div>
+            </div>
+
+            
+            <div class="system-row" vid="99">
+                <div class="system-info" vid="100">
+                    <div vid="101">
+                        <span class="eyebrow" style="margin-bottom: 16px;" vid="102">Wash / Pixel</span>
+                        <h3 vid="103">WASH-Q40 Matrix</h3>
+                    </div>
+                    <p style="color: var(--text-muted);" vid="104">Massive atmospheric output with pixel-mapping capabilities. 40 individual 15W RGBW LEDs allow for complex volumetric eye-candy effects alongside powerful stage washing.</p>
+                    
+                    <div class="specs-grid" vid="105">
+                        <div class="spec-item" vid="106">
+                            <span class="mono-sm label" vid="107">LIGHT SOURCE</span>
+                            <span class="mono-sm value" vid="108">40x 15W OSRAM RGBW</span>
+                        </div>
+                        <div class="spec-item" vid="109">
+                            <span class="mono-sm label" vid="110">PIXEL MAPPING</span>
+                            <span class="mono-sm value" vid="111">INDIVIDUAL LED CTRL</span>
+                        </div>
+                        <div class="spec-item" vid="112">
+                            <span class="mono-sm label" vid="113">REFRESH RATE</span>
+                            <span class="mono-sm value" vid="114">1200Hz (FLICKER FREE)</span>
+                        </div>
+                        <div class="spec-item" vid="115">
+                            <span class="mono-sm label" vid="116">WEIGHT</span>
+                            <span class="mono-sm value" vid="117">18.5 KG</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn" style="align-self: flex-start;" vid="118">View Full Datasheet</a>
+                </div>
+                <div class="system-image-wrapper" vid="119">
+                    <div class="crosshair ch-tl" vid="120"></div>
+                    <div class="crosshair ch-br" vid="121"></div>
+                    
+                    <img src="https://images.pexels.com/photos/17055740/pexels-photo-17055740.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=2" alt="LED Matrix detail" vid="122">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tech-section" id="technology" vid="123">
+        <div class="container" vid="124">
+            <div class="section-header" vid="125">
+                <h2 vid="126">Internal<br vid="127">Architecture</h2>
+                <div class="mono-sm" vid="128">[ SYSTEM INTELLIGENCE ]</div>
+            </div>
+
+            <div class="tech-grid" vid="129">
+                <div class="tech-card" vid="130">
+                    <div class="tech-icon" vid="131">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" vid="132"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" vid="133"></path></svg>
+                    </div>
+                    <h4 style="font-family: var(--font-body); font-size: 1.2rem; margin-bottom: 16px; font-weight: 500;" vid="134">Absolute Positioning</h4>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;" vid="135">Proprietary magnetic encoders ensure fixtures never lose their zero point, even if physically bumped during a live set. Instant recovery.</p>
+                </div>
+                <div class="tech-card" vid="136">
+                    <div class="tech-icon" vid="137">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" vid="138"><circle cx="12" cy="12" r="10" vid="139"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" vid="140"></path><path d="M2 12h20" vid="141"></path></svg>
+                    </div>
+                    <h4 style="font-family: var(--font-body); font-size: 1.2rem; margin-bottom: 16px; font-weight: 500;" vid="142">Color Science</h4>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;" vid="143">Advanced dichroic glass mixing flags provide seamless transitions from saturated theatrical gels to precise, high-CRI broadcast whites.</p>
+                </div>
+                <div class="tech-card" vid="144">
+                    <div class="tech-icon" vid="145">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" vid="146"><rect x="2" y="4" width="20" height="16" rx="2" vid="147"></rect><path d="M10 4v4" vid="148"></path><path d="M14 4v4" vid="149"></path><path d="M2 8h20" vid="150"></path><path d="M6 8v12" vid="151"></path></svg>
+                    </div>
+                    <h4 style="font-family: var(--font-body); font-size: 1.2rem; margin-bottom: 16px; font-weight: 500;" vid="152">Thermal Management</h4>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;" vid="153">Liquid-cooled LED arrays combined with ultra-quiet stepper fan control ensures peak lumen output without compromising theatrical silence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 0;" vid="154">
+        <div class="testimonial" vid="155">
+            <div class="quote" vid="156">"When you are programming 300 moving fixtures for a stadium tour, you cannot afford latency or mechanical failure. Maduro is the only hardware I trust on the rig."</div>
+            <div class="quote-author" vid="157">
+                <span style="font-family: var(--font-display); font-size: 1.2rem;" vid="158">ELENA ROSTOVA</span>
+                <span class="mono-sm highlight" vid="159">LEAD LIGHTING DESIGNER, VOLT TOURING</span>
+            </div>
+        </div>
+    </section>
+
+    <footer vid="160">
+        <div class="container" vid="161">
+            <div class="footer-cta" vid="162">
+                <h2 vid="163">Construct Your<br vid="164">Next Show.</h2>
+                <a href="#demo" class="btn primary" vid="165">Request Demo Unit</a>
+            </div>
+
+            <div class="footer-grid" vid="166">
+                <div class="footer-col" vid="167">
+                    <div class="logo" style="margin-bottom: 24px;" vid="168">
+                        MADURO<span vid="169">LIGHTING</span>
+                    </div>
+                    <p style="color: var(--text-dim); font-size: 0.9rem; max-width: 300px;" vid="170">
+                        Precision optical hardware for the uncompromising lighting professional.
+                    </p>
+                </div>
+                <div class="footer-col" vid="171">
+                    <h4 vid="172">Hardware</h4>
+                    <ul vid="173">
+                        <li vid="174"><a href="#" vid="175">Moving Heads</a></li>
+                        <li vid="176"><a href="#" vid="177">Wash &amp; Matrix</a></li>
+                        <li vid="178"><a href="#" vid="179">Static Profiles</a></li>
+                        <li vid="180"><a href="#" vid="181">Atmospherics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" vid="182">
+                    <h4 vid="183">Support</h4>
+                    <ul vid="184">
+                        <li vid="185"><a href="#" vid="186">Firmware Updates</a></li>
+                        <li vid="187"><a href="#" vid="188">DMX Profiles</a></li>
+                        <li vid="189"><a href="#" vid="190">Service Centers</a></li>
+                        <li vid="191"><a href="#" vid="192">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" vid="193">
+                    <h4 vid="194">Company</h4>
+                    <ul vid="195">
+                        <li vid="196"><a href="#" vid="197">About</a></li>
+                        <li vid="198"><a href="#" vid="199">Careers</a></li>
+                        <li vid="200"><a href="#" vid="201">Press</a></li>
+                        <li vid="202"><a href="#" vid="203">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom mono-sm" vid="204">
+                <div vid="205">© 2024 MADURO LIGHTING INC.</div>
+                <div vid="206">[ DESIGNED FOR IMPACT ]</div>
+            </div>
+        </div>
+    </footer>
+
+
+</body></html>

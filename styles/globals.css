@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&family=Syncopate:wght@700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #030303;
+  --surface-1: #0A0A0A;
+  --surface-2: #141414;
+  --border: #222222;
+  --border-glow: rgba(242, 169, 0, 0.3);
+
+  --text-main: #FFFFFF;
+  --text-muted: #8A8A8A;
+  --text-dim: #444444;
+
+  --amber: #F2A900;
+  --amber-dim: rgba(242, 169, 0, 0.15);
+
+  --font-display: 'Syncopate', sans-serif;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --grid-gap: 24px;
+  --section-pad: 120px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--void);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 100px 100px;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, transparent 0%, var(--void) 80%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--void);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+}
+
+a {
+  color: var(--text-main);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--amber);
+}
+
+/* Eyebrow label with decorative lines */
+.eyebrow {
+  font-family: var(--font-mono);
+  color: var(--amber);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--amber);
+  flex-shrink: 0;
+}
+
+/* Mono small utility */
+.mono-sm {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+/* Button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-main);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--text-main);
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: -1;
+}
+
+.btn:hover::before {
+  transform: translateX(100%);
+}
+
+.btn:hover {
+  color: var(--void);
+  border-color: var(--text-main);
+}
+
+.btn.primary {
+  background: var(--text-main);
+  color: var(--void);
+  border-color: var(--text-main);
+}
+
+.btn.primary::before {
+  background: var(--amber);
+}
+
+.btn.primary:hover {
+  border-color: var(--amber);
+  box-shadow: 0 0 20px rgba(242, 169, 0, 0.4);
+  color: var(--void);
+}
+
+/* Category card hover glow */
+.cat-card {
+  background: var(--void);
+  padding: 48px 32px;
+  position: relative;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.cat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, var(--amber-dim) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.cat-card:hover::before {
+  opacity: 1;
+}
+
+.cat-card:hover {
+  box-shadow: inset 0 0 0 1px var(--amber);
+}
+
+/* System image hover */
+.system-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+  mix-blend-mode: luminosity;
+  transition: opacity 0.5s ease, mix-blend-mode 0.5s ease;
+}
+
+.system-row:hover .system-image-wrapper img {
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+/* System image scanline overlay */
+.system-image-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 48%,
+    rgba(255, 255, 255, 0.1) 49%,
+    rgba(255, 255, 255, 0.1) 51%,
+    transparent 52%
+  );
+  background-size: 10px 10px;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Hero monolith amber glow */
+.hero-monolith::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: -10px;
+  width: 20px;
+  background: linear-gradient(to right, transparent, var(--amber), transparent);
+  filter: blur(10px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Logo styling */
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.15em;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.logo span {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.4em;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Highlight utility */
+.highlight {
+  color: var(--amber);
+}
