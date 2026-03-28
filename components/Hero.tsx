@@ -1,6 +1,7 @@
 export default function Hero() {
   return (
     <section
+      className="hero-section"
       style={{
         height: '100vh',
         display: 'flex',
@@ -24,40 +25,23 @@ export default function Hero() {
         }}
       />
 
-      {/* Hero Monolith */}
+      {/* Ambient light zone — right side, no boundary, no container */}
+      <div className="hero-light-zone" />
+
+      {/* Amber light-emitting line */}
       <div
         style={{
           position: 'absolute',
-          right: '10%',
+          right: 'calc(10% + 300px)',
           top: '50%',
           transform: 'translateY(-50%)',
-          width: '300px',
+          width: 0,
           height: '65vh',
-          background: '#000',
           zIndex: 1,
-          boxShadow: 'inset 2px 0 0 0 rgba(255,255,255,0.05), inset -4px 0 20px rgba(0,0,0,0.9)',
-          border: '1px solid var(--border)',
           borderLeft: '2px solid var(--amber)',
         }}
         className="hero-monolith"
-      >
-        <div
-          style={{
-            position: 'absolute',
-            right: '-20px',
-            top: '20px',
-            writingMode: 'vertical-rl',
-            fontFamily: 'var(--font-display)',
-            fontSize: '4rem',
-            color: 'rgba(255,255,255,0.02)',
-            letterSpacing: '0.2em',
-            whiteSpace: 'nowrap',
-            textTransform: 'uppercase',
-          }}
-        >
-          PERFORMANCE
-        </div>
-      </div>
+      />
 
       {/* Main content */}
       <div

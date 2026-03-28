@@ -247,7 +247,44 @@ a:hover {
   opacity: 0.3;
 }
 
+/* ── Hero animations ────────────────────────────────────────────────────── */
+
+/* Amber line: slow brightness pulse with two brief flicker moments per cycle */
+@keyframes amber-line-pulse {
+  0%    { border-left-color: #F2A900; }
+  18%   { border-left-color: rgba(242, 169, 0, 0.80); }
+  28%   { border-left-color: rgba(242, 169, 0, 0.88); }
+  28.4% { border-left-color: rgba(242, 169, 0, 0.55); }
+  28.8% { border-left-color: rgba(242, 169, 0, 0.84); }
+  52%   { border-left-color: rgba(242, 169, 0, 0.70); }
+  68%   { border-left-color: rgba(242, 169, 0, 0.92); }
+  68.4% { border-left-color: rgba(242, 169, 0, 0.58); }
+  68.8% { border-left-color: rgba(242, 169, 0, 0.86); }
+  84%   { border-left-color: rgba(242, 169, 0, 0.78); }
+  100%  { border-left-color: #F2A900; }
+}
+
+/* Amber glow: slow expansion and contraction of the blur halo */
+@keyframes amber-glow-breathe {
+  0%   { opacity: 0.70; filter: blur(10px); }
+  35%  { opacity: 0.40; filter: blur(16px); }
+  65%  { opacity: 0.58; filter: blur(12px); }
+  100% { opacity: 0.70; filter: blur(10px); }
+}
+
+/* Grid shimmer: a near-invisible diagonal highlight drifts across the hero */
+@keyframes grid-shimmer {
+  0%   { transform: translateX(-80%) skewX(-12deg); opacity: 0; }
+  6%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { transform: translateX(180%) skewX(-12deg); opacity: 0; }
+}
+
 /* Hero monolith amber glow */
+.hero-monolith {
+  animation: amber-line-pulse 8s ease-in-out infinite;
+}
+
 .hero-monolith::after {
   content: '';
   position: absolute;
@@ -259,6 +296,50 @@ a:hover {
   filter: blur(10px);
   opacity: 0.7;
   pointer-events: none;
+  animation: amber-glow-breathe 7s ease-in-out infinite;
+}
+
+/* Ambient light zone — right side of hero, no container shape */
+@keyframes light-zone-breathe {
+  0%   { opacity: 0.65; }
+  40%  { opacity: 0.35; }
+  75%  { opacity: 0.55; }
+  100% { opacity: 0.65; }
+}
+
+.hero-light-zone {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60%;
+  background: radial-gradient(
+    ellipse at 15% 50%,
+    rgba(242, 169, 0, 0.045) 0%,
+    rgba(242, 169, 0, 0.015) 40%,
+    transparent 72%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: light-zone-breathe 10s ease-in-out infinite;
+  will-change: opacity;
+}
+
+/* Hero section grid shimmer overlay */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    108deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.009) 50%,
+    transparent 62%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: grid-shimmer 26s ease-in-out 4s infinite;
+  will-change: transform;
 }
 
 /* Logo styling */
