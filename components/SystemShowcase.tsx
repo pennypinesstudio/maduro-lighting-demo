@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Reveal from './ui/Reveal'
 
 const systems = [
   {
@@ -62,19 +63,23 @@ export default function SystemShowcase() {
             paddingBottom: '32px',
           }}
         >
-          <h2 style={{ fontSize: '3rem', maxWidth: '600px' }}>
-            Featured
-            <br />
-            Hardware
-          </h2>
-          <span className="mono-sm">SELECT INVENTORY</span>
+          <Reveal>
+            <h2 style={{ fontSize: '3rem', maxWidth: '600px' }}>
+              Featured
+              <br />
+              Hardware
+            </h2>
+          </Reveal>
+          <Reveal delay={80}>
+            <span className="mono-sm">SELECT INVENTORY</span>
+          </Reveal>
         </div>
 
         {/* System rows */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '64px' }}>
           {systems.map((sys) => (
+            <Reveal key={sys.id}>
             <div
-              key={sys.id}
               className="system-row"
               style={{
                 display: 'grid',
@@ -186,6 +191,7 @@ export default function SystemShowcase() {
                 </a>
               </div>
             </div>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -280,9 +280,17 @@ a:hover {
   100% { transform: translateX(180%) skewX(-12deg); opacity: 0; }
 }
 
+/* Hero monolith horizontal sweep — slow calibration pass behind text, then return */
+@keyframes amber-sweep {
+  0%   { transform: translateY(-50%) translateX(0);      animation-timing-function: ease-out; }
+  35%  { transform: translateY(-50%) translateX(-35vw);  animation-timing-function: cubic-bezier(0.45, 0.0, 0.55, 1.0); }
+  70%  { transform: translateY(-50%) translateX(0); }
+  100% { transform: translateY(-50%) translateX(0); }
+}
+
 /* Hero monolith amber glow */
 .hero-monolith {
-  animation: amber-line-pulse 8s ease-in-out infinite;
+  animation: amber-line-pulse 8s ease-in-out infinite, amber-sweep 6.5s ease-in-out 0s 1 normal forwards;
 }
 
 .hero-monolith::after {

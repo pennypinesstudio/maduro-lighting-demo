@@ -1,3 +1,6 @@
+import SpotlightCard from './ui/SpotlightCard';
+import Reveal from './ui/Reveal';
+
 const techCards = [
   {
     icon: (
@@ -68,12 +71,16 @@ export default function TechSection() {
             paddingBottom: '32px',
           }}
         >
-          <h2 style={{ fontSize: '3rem', maxWidth: '600px' }}>
-            Internal
-            <br />
-            Architecture
-          </h2>
-          <div className="mono-sm">[ SYSTEM INTELLIGENCE ]</div>
+          <Reveal>
+            <h2 style={{ fontSize: '3rem', maxWidth: '600px' }}>
+              Internal
+              <br />
+              Architecture
+            </h2>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="mono-sm">[ SYSTEM INTELLIGENCE ]</div>
+          </Reveal>
         </div>
 
         {/* Tech grid */}
@@ -84,14 +91,13 @@ export default function TechSection() {
             gap: '40px',
           }}
         >
-          {techCards.map((card) => (
-            <div
-              key={card.title}
+          {techCards.map((card, i) => (
+            <Reveal key={card.title} delay={i * 80}>
+            <SpotlightCard
               style={{
                 padding: '40px',
                 border: '1px solid var(--border)',
                 background: 'var(--void)',
-                position: 'relative',
               }}
             >
               {/* Icon box */}
@@ -123,7 +129,8 @@ export default function TechSection() {
                 {card.title}
               </h4>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>{card.description}</p>
-            </div>
+            </SpotlightCard>
+            </Reveal>
           ))}
         </div>
       </div>

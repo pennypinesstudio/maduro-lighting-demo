@@ -21,6 +21,8 @@ const categories = [
   },
 ]
 
+import Reveal from './ui/Reveal';
+
 export default function CatalogGrid() {
   return (
     <section
@@ -37,6 +39,7 @@ export default function CatalogGrid() {
           padding: '0 40px',
         }}
       >
+        <Reveal>
         <div
           style={{
             display: 'grid',
@@ -74,6 +77,7 @@ export default function CatalogGrid() {
             </div>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   )

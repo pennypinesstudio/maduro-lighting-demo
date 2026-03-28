@@ -1,3 +1,5 @@
+import Reveal from './ui/Reveal';
+
 export default function PhilosophySection() {
   return (
     <section
@@ -24,24 +26,28 @@ export default function PhilosophySection() {
             paddingBottom: '32px',
           }}
         >
-          <h2
-            style={{
-              fontSize: '3rem',
-              maxWidth: '600px',
-            }}
-          >
-            Engineered for
-            <br />
-            the <span className="highlight">stage</span>
-          </h2>
+          <Reveal>
+            <h2
+              style={{
+                fontSize: '3rem',
+                maxWidth: '600px',
+              }}
+            >
+              Engineered for
+              <br />
+              the <span className="highlight">stage</span>
+            </h2>
+          </Reveal>
 
-          <div
-            className="mono-sm"
-            style={{ maxWidth: '300px', textAlign: 'right' }}
-          >
-            [01] WE DO NOT BUILD CONSUMER ELECTRONICS. WE BUILD HEAVY-DUTY OPTICAL INSTRUMENTS
-            DESIGNED TO WITHSTAND THE ROAD.
-          </div>
+          <Reveal delay={80}>
+            <div
+              className="mono-sm"
+              style={{ maxWidth: '300px', textAlign: 'right' }}
+            >
+              [01] WE DO NOT BUILD CONSUMER ELECTRONICS. WE BUILD HEAVY-DUTY OPTICAL INSTRUMENTS
+              DESIGNED TO WITHSTAND THE ROAD.
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
